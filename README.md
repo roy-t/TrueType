@@ -1,4 +1,4 @@
-# Roy-T.AStar
+# Roy-T.TrueType
 
 *Current version: 0.1.0*
 
