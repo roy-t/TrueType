@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using RoyT.TrueType.Helpers;
+using RoyT.TrueType.Tables.Name;
 using Xunit;
 
 namespace RoyT.TrueType.Tests
@@ -60,5 +62,18 @@ namespace RoyT.TrueType.Tests
             horizontalKerning = KerningHelper.GetHorizontalKerning('T', 'T', 1.0f, font);
             Assert.Equal(0, horizontalKerning);
         }
+
+        /// <summary>
+        /// Smoke test for checking name info
+        /// </summary>
+        [Fact]
+        public void ShouldGetName()
+        {
+            var font = TrueTypeFont.FromFile(@"C:\Windows\Fonts\arial.ttf");
+
+            var name = NameHelper.GetName(NameId.FontSubfamilyName, new CultureInfo("nl-NL"), font);
+
+            Assert.Equal("Standaard", name);
+        }      
     }
 }

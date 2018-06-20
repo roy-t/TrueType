@@ -5,7 +5,7 @@ namespace RoyT.TrueType.Helpers
     public static class KerningHelper
     {
         /// <summary>
-        /// Returns the horizontal kerning between the left and right character scaled by the scale paramter
+        /// Returns the horizontal kerning between the left and right character scaled by the scale parameter
         /// or 0 if no kerning information exists for this pair of characters
         /// </summary>        
         public static float GetHorizontalKerning(char left, char right, float scale, TrueTypeFont font)
