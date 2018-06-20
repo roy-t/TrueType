@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoyT.TrueType", "RoyT.TrueType\RoyT.TrueType.csproj", "{4008BF29-9A6C-424C-978D-1F7BF3DBEE65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoyT.TrueType.Tests", "RoyT.TrueType.Tests\RoyT.TrueType.Tests.csproj", "{4F494AFB-C57A-4CAA-8AD4-9C93BA76267B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoyT.TrueType", "RoyT.TrueType\RoyT.TrueType.csproj", "{FBB8C11A-9BA6-4A6A-97BC-76D42571960A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4008BF29-9A6C-424C-978D-1F7BF3DBEE65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4008BF29-9A6C-424C-978D-1F7BF3DBEE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4008BF29-9A6C-424C-978D-1F7BF3DBEE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4008BF29-9A6C-424C-978D-1F7BF3DBEE65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F494AFB-C57A-4CAA-8AD4-9C93BA76267B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F494AFB-C57A-4CAA-8AD4-9C93BA76267B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F494AFB-C57A-4CAA-8AD4-9C93BA76267B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F494AFB-C57A-4CAA-8AD4-9C93BA76267B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBB8C11A-9BA6-4A6A-97BC-76D42571960A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBB8C11A-9BA6-4A6A-97BC-76D42571960A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBB8C11A-9BA6-4A6A-97BC-76D42571960A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBB8C11A-9BA6-4A6A-97BC-76D42571960A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
