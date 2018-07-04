@@ -1,6 +1,6 @@
 # Roy-T.TrueType
 
-*Current version: 0.1.0*
+*Current version: 0.1.1*
 
 A TrueType parser for reading, glyphIds, names, descriptions, and kerning information from TrueType fonts. Supports `.NetStandard 1.6`, `.Net 4.6.1` and higher.
 
@@ -53,7 +53,7 @@ var font = TrueTypeFont.FromFile(@"C:\Windows\Fonts\arial.ttf");
 
 // Using the helper functions
 var glyphIndex = GlyphHelper.GetGlyphIndex('A', font);  // 36
-var horizontalKerning = KerningHelper.GetHorizontalKerning('A', 'W', 1.0f, font);   // -76
+var horizontalKerning = KerningHelper.GetHorizontalKerning('A', 'W', font);   // -76
 var name = NameHelper.GetName(NameId.FontSubfamilyName, new CultureInfo("nl-NL"), font); // Standaard
 
 // Diving in deep yourself to get some specific information is also possible
