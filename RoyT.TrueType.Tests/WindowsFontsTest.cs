@@ -56,10 +56,10 @@ namespace RoyT.TrueType.Tests
         {
             var font = TrueTypeFont.FromFile(@"C:\Windows\Fonts\arial.ttf");            
 
-            var horizontalKerning = KerningHelper.GetHorizontalKerning('A', 'W', 1.0f, font);
+            var horizontalKerning = KerningHelper.GetHorizontalKerning('A', 'W', font);
             Assert.True(horizontalKerning < 0);
 
-            horizontalKerning = KerningHelper.GetHorizontalKerning('T', 'T', 1.0f, font);
+            horizontalKerning = KerningHelper.GetHorizontalKerning('T', 'T', font);
             Assert.Equal(0, horizontalKerning);
         }
 

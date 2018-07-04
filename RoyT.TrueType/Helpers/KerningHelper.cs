@@ -8,7 +8,7 @@ namespace RoyT.TrueType.Helpers
         /// Returns the horizontal kerning between the left and right character scaled by the scale parameter
         /// or 0 if no kerning information exists for this pair of characters
         /// </summary>        
-        public static float GetHorizontalKerning(char left, char right, float scale, TrueTypeFont font)
+        public static float GetHorizontalKerning(char left, char right, TrueTypeFont font)
         {
             if (font.KernTable.SubtableCount > 0)
             {
@@ -24,7 +24,7 @@ namespace RoyT.TrueType.Helpers
 
                         if (subTable.Format0.Map.TryGetValue(pair, out var value))
                         {
-                            return value / scale;
+                            return value;
                         }
                     }
                 }
