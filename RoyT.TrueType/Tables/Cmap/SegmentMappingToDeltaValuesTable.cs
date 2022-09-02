@@ -45,7 +45,7 @@ namespace RoyT.TrueType.Tables.Cmap
                 idRangeOffset[i] = reader.ReadUInt16BigEndian();
             }
             
-            var read = start - reader.Position;
+            var read = reader.Position - start;
             var glyphCount = (length - read) / sizeof (ushort);
             var glyphIdArray = new ushort[glyphCount];
             for (var i = 0; i < glyphIdArray.Length; i++)
