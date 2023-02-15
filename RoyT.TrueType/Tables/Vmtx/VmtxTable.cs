@@ -9,8 +9,10 @@ namespace RoyT.TrueType.Tables.Vmtx
     /// </summary>
     public sealed class VmtxTable
     {
-        public static VmtxTable FromReader(FontReader reader, int metricsCount, int glyphCount)
+        public static VmtxTable FromReader(FontReader reader, TableRecordEntry entry, int metricsCount, int glyphCount)
         {
+            reader.Seek(entry.Offset);
+
             List<LongVerMetric> vmetrics = new(metricsCount);
             for (int i = 0; i < metricsCount; i++)
             {

@@ -16,7 +16,6 @@ namespace RoyT.TrueType.Tests
         public void ShouldParseWindowsFonts()
         {
             var fonts = new List<TrueTypeFont>();
-
             foreach (var file in Directory.EnumerateFiles(@"C:\Windows\Fonts"))
             {
                 if (file.EndsWith(".ttf"))

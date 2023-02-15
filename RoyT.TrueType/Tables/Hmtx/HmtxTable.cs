@@ -9,8 +9,10 @@ namespace RoyT.TrueType.Tables.Hmtx
     /// </summary>
     public sealed class HmtxTable
     {
-        public static HmtxTable FromReader(FontReader reader, int metricsCount, int glyphCount)
+        public static HmtxTable FromReader(FontReader reader, TableRecordEntry entry, int metricsCount, int glyphCount)
         {
+            reader.Seek(entry.Offset);
+
             List<LongHorMetric> hmetrics = new(metricsCount);
             for (int i = 0; i < metricsCount; i++)
             {

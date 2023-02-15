@@ -97,10 +97,9 @@ namespace RoyT.TrueType
 
         private static MaxpTable ReadMaxpTable(string path, FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
         {
-            if (entries.TryGetValue(TrueTypeTableNames.maxp, out var maxpEntry))
+            if (entries.TryGetValue(TrueTypeTableNames.maxp, out var entry))
             {
-                reader.Seek(maxpEntry.Offset);
-                return MaxpTable.FromReader(reader);
+                return MaxpTable.FromReader(reader, entry);
             }
 
             throw new Exception(
@@ -130,10 +129,9 @@ namespace RoyT.TrueType
 
         private static HheaTable ReadHheaTable(FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
         {
-            if (entries.TryGetValue(TrueTypeTableNames.hhea, out var kernEntry))
+            if (entries.TryGetValue(TrueTypeTableNames.hhea, out var entry))
             {
-                reader.Seek(kernEntry.Offset);
-                return HheaTable.FromReader(reader);
+                return HheaTable.FromReader(reader, entry);
             }
 
             return HheaTable.Empty;
@@ -141,10 +139,9 @@ namespace RoyT.TrueType
         
         private static HmtxTable ReadHmtxTable(FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries, ushort metricsCount, ushort glyphCount)
         {
-            if (entries.TryGetValue(TrueTypeTableNames.hmtx, out var kernEntry))
+            if (entries.TryGetValue(TrueTypeTableNames.hmtx, out var entry))
             {
-                reader.Seek(kernEntry.Offset);
-                return HmtxTable.FromReader(reader, metricsCount, glyphCount);
+                return HmtxTable.FromReader(reader, entry, metricsCount, glyphCount);
             }
 
             return HmtxTable.Empty;
@@ -152,10 +149,9 @@ namespace RoyT.TrueType
 
         private static VheaTable ReadVheaTable(FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
         {
-            if (entries.TryGetValue(TrueTypeTableNames.vhea, out var kernEntry))
+            if (entries.TryGetValue(TrueTypeTableNames.vhea, out var entry))
             {
-                reader.Seek(kernEntry.Offset);
-                return VheaTable.FromReader(reader);
+                return VheaTable.FromReader(reader, entry);
             }
 
             return VheaTable.Empty;
@@ -163,10 +159,9 @@ namespace RoyT.TrueType
 
         private static VmtxTable ReadVmtxTable(FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries, ushort metricsCount, int glyphCount)
         {
-            if (entries.TryGetValue(TrueTypeTableNames.hmtx, out var kernEntry))
+            if (entries.TryGetValue(TrueTypeTableNames.vmtx, out var entry))
             {
-                reader.Seek(kernEntry.Offset);
-                return VmtxTable.FromReader(reader, metricsCount, glyphCount);
+                return VmtxTable.FromReader(reader, entry, metricsCount, glyphCount);
             }
 
             return VmtxTable.Empty;

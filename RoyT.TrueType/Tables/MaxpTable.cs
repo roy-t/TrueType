@@ -7,8 +7,10 @@ namespace RoyT.TrueType.Tables
     /// </summary>
     public sealed class MaxpTable
     {
-        public static MaxpTable FromReader(FontReader reader)
+        public static MaxpTable FromReader(FontReader reader, TableRecordEntry entry)
         {
+            reader.Seek(entry.Offset);
+
             reader.ReadFixedBigEndian(out short major, out short minor);
             ushort numGlyphcs = reader.ReadUInt16BigEndian();
 
