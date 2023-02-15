@@ -11,6 +11,11 @@
         /// Kerning Table
         /// </summary>
         public const string kern = "kern";
+        
+        /// <summary>
+        /// Maximum Profile Table
+        /// </summary>
+        public const string maxp = "maxp";
 
         /// <summary>
         /// Naming Table
@@ -23,8 +28,18 @@
         public const string hhea = "hhea";
 
         /// <summary>
+        /// Horizontal Metrics Table
+        /// </summary>
+        public const string hmtx = "hmtx";
+
+        /// <summary>
         /// Vertical Header Table
         /// </summary>
         public const string vhea = "vhea";
+
+        /// <summary>
+        /// Vertical Metrics Table
+        /// </summary>
+        public const string vmtx = "vmtx";
     }
 }
