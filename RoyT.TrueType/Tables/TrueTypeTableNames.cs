@@ -23,6 +23,11 @@
         public const string name = "name";
 
         /// <summary>
+        /// OS/2 and Windows Metrics Table
+        /// </summary>
+        public const string os2 = "OS/2";
+
+        /// <summary>
         /// Horizontal Header Table
         /// </summary>
         public const string hhea = "hhea";
