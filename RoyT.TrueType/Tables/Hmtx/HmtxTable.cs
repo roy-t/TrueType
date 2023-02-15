@@ -13,14 +13,18 @@ namespace RoyT.TrueType.Tables.Hmtx
         {
             reader.Seek(entry.Offset);
 
+            int leftSideBearingCount = glyphCount - metricsCount;
+            var expected = 4 * metricsCount + 2 * leftSideBearingCount;
+            if (entry.Length != expected)
+            {
+                throw new Exception("unexpected hmtx table length");
+            }
+
             List<LongHorMetric> hmetrics = new(metricsCount);
             for (int i = 0; i < metricsCount; i++)
             {
                 hmetrics.Add(LongHorMetric.FromReader(reader));
             }
-
-            int leftSideBearingCount = glyphCount - metricsCount;
-            leftSideBearingCount = Math.Max(0, leftSideBearingCount);
 
             List<short> leftSideBearings = new(leftSideBearingCount);
             for (int i = 0; i < leftSideBearingCount; i++)

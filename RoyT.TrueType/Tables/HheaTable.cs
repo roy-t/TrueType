@@ -24,8 +24,8 @@ namespace RoyT.TrueType.Tables
             var caretSlopeRun = reader.ReadInt16BigEndian();
             var caretOffset = reader.ReadInt16BigEndian();
 
-            // Seek over reserved bytes
-            reader.Seek(4);
+            // Seek over 4 reserved int16 fields
+            reader.Seek(8, System.IO.SeekOrigin.Current);
 
             var metricDataFormat = reader.ReadInt16BigEndian();
             var numberOfHMetrics = reader.ReadUInt16BigEndian();

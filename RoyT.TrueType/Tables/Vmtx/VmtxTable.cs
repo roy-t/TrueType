@@ -13,14 +13,17 @@ namespace RoyT.TrueType.Tables.Vmtx
         {
             reader.Seek(entry.Offset);
 
+            int topSideBearingCount = glyphCount - metricsCount;
+            if (entry.Length != metricsCount * 4 + topSideBearingCount * 2)
+            {
+                throw new Exception("unexpected vmtx table length");
+            }
+
             List<LongVerMetric> vmetrics = new(metricsCount);
             for (int i = 0; i < metricsCount; i++)
             {
                 vmetrics.Add(LongVerMetric.FromReader(reader));
             }
-
-            int topSideBearingCount = glyphCount - metricsCount;
-            topSideBearingCount = Math.Max(0, topSideBearingCount);
 
             List<short> topSideBearings = new(topSideBearingCount);
             for (int i = 0; i < topSideBearingCount; i++)
