@@ -83,5 +83,14 @@ namespace RoyT.TrueType.Tests
             Assert.Equal(1, font.HheaTable.MajorVersion);
             Assert.Equal(0, font.HheaTable.MinorVersion);
         }
+
+        [Fact]
+        public void ShouldGetVhea()
+        {
+            var font = TrueTypeFont.FromFile(@"C:\Windows\Fonts\malgun.ttf");
+
+            Assert.Equal(1, font.VheaTable.MajorVersion);
+            Assert.Equal(0, font.VheaTable.MinorVersion);
+        }
     }
 }
