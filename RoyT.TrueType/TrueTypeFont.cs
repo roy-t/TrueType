@@ -21,8 +21,14 @@ namespace RoyT.TrueType
                 var cmap = ReadCmapTable(path, reader, entries);
                 var name = ReadNameTable(path, reader, entries);
                 var kern = ReadKernTable(reader, entries);
+                var hhea = ReadHheaTable(reader, entries);
+                var vhea = ReadVheaTable(reader, entries);
 
-                return new TrueTypeFont(path, offsetTable, entries, cmap, name, kern);
+                return new TrueTypeFont(path, offsetTable, entries, cmap, name, kern)
+                {
+                    HheaTable = hhea,
+                    VheaTable = vhea,
+                };
             }
         }
       
@@ -90,7 +96,29 @@ namespace RoyT.TrueType
 
             return KernTable.Empty;            
         }
-        
+
+        private static HheaTable ReadHheaTable(FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
+        {
+            if (entries.TryGetValue("hhea", out var kernEntry))
+            {
+                reader.Seek(kernEntry.Offset);
+                return HheaTable.FromReader(reader);
+            }
+
+            return HheaTable.Empty;
+        }
+
+        private static VheaTable ReadVheaTable(FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
+        {
+            if (entries.TryGetValue("vhea", out var kernEntry))
+            {
+                reader.Seek(kernEntry.Offset);
+                return VheaTable.FromReader(reader);
+            }
+
+            return VheaTable.Empty;
+        }
+
         private TrueTypeFont(string source, OffsetTable offsetTable, IReadOnlyDictionary<string, TableRecordEntry> entries, CmapTable cmapTable, NameTable nameTable, KernTable kernTable)
         {
             this.Source = source;
@@ -119,6 +147,16 @@ namespace RoyT.TrueType
         /// Contains adjustment to horizontal/vertical positions between glyphs
         /// </summary>
         public KernTable KernTable { get; }
+
+        /// <summary>
+        /// Contains information for horizontal layout
+        /// </summary>
+        public HheaTable HheaTable { get; init; }
+        
+        /// <summary>
+        /// Contains information for vertical layout
+        /// </summary>
+        public VheaTable VheaTable { get; init; }
 
         public override string ToString() => this.Source;
     }

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
+	<LangVersion>latest</LangVersion>
     <Version>0.1.1</Version>
     <Authors>Roy Triesscheijn</Authors>
     <Company />
