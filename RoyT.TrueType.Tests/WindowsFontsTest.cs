@@ -15,9 +15,7 @@ namespace RoyT.TrueType.Tests
         [Fact]
         public void ShouldParseWindowsFonts()
         {
-
             var fonts = new List<TrueTypeFont>();
-
             foreach (var file in Directory.EnumerateFiles(@"C:\Windows\Fonts"))
             {
                 if (file.EndsWith(".ttf"))
@@ -85,12 +83,29 @@ namespace RoyT.TrueType.Tests
         }
 
         [Fact]
+        public void ShouldGetHmtx()
+        {
+            var font = TrueTypeFont.FromFile(@"C:\Windows\Fonts\arial.ttf");
+
+            Assert.Equal(font.HheaTable.NumberOfHMetrics, font.HmtxTable.HMetrics.Count);
+        }
+
+        [Fact]
         public void ShouldGetVhea()
         {
             var font = TrueTypeFont.FromFile(@"C:\Windows\Fonts\malgun.ttf");
 
             Assert.Equal(1, font.VheaTable.MajorVersion);
             Assert.Equal(0, font.VheaTable.MinorVersion);
+        }
+
+        [Fact]
+        public void ShouldGetVmtx()
+        {
+            var font = TrueTypeFont.FromFile(@"C:\Windows\Fonts\malgun.ttf");
+
+            Assert.Equal(font.VheaTable.NumberOfVMetrics, font.VmtxTable.VMetrics.Count);
+            Assert.Equal(font.MaxpTable.NumGlyphs - font.VheaTable.NumberOfVMetrics, font.VmtxTable.TopSideBearings.Count);
         }
     }
 }

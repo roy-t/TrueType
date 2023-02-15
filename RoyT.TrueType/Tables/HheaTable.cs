@@ -7,8 +7,10 @@ namespace RoyT.TrueType.Tables
     /// </summary>
     public sealed class HheaTable
     {
-        public static HheaTable FromReader(FontReader reader)
+        public static HheaTable FromReader(FontReader reader, TableRecordEntry entry)
         {
+            reader.Seek(entry.Offset);
+
             var majorVersion = reader.ReadUInt16BigEndian();
             var minorVersion = reader.ReadUInt16BigEndian();
             var ascender = reader.ReadInt16BigEndian();

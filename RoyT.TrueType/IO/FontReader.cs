@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace RoyT.TrueType.IO
-{   
+{
     /// <summary>
     /// Extended BinaryReader with helper methods for reading number and text formats
     /// common in TrueType files
@@ -38,7 +37,7 @@ namespace RoyT.TrueType.IO
         public string ReadAscii(int length)
         {            
             var bytes = this.ReadBytes(length);
-            return new string(bytes.Select(b => (char) b).ToArray(), 0, length).Replace("\0", string.Empty);
+            return Encoding.ASCII.GetString(bytes);
         }
 
         public string ReadBigEndianUnicode(int length)
@@ -52,7 +51,6 @@ namespace RoyT.TrueType.IO
             var bytes = ReadBigEndian(numberOfBytes);
             return new BitArray(bytes);
         }
-
 
         /// <summary>
         /// Reads a 32 bit signed fixed point number (16.16)        

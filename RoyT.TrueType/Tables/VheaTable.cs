@@ -7,8 +7,10 @@ namespace RoyT.TrueType.Tables
     /// </summary>
     public sealed class VheaTable
     {
-        public static VheaTable FromReader(FontReader reader)
+        public static VheaTable FromReader(FontReader reader, TableRecordEntry entry)
         {
+            reader.Seek(entry.Offset);
+
             reader.ReadFixedBigEndian(out short major, out short minor);
 
             var ascender = reader.ReadInt16BigEndian();
