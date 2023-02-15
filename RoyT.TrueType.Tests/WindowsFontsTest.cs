@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using RoyT.TrueType.Helpers;
@@ -18,14 +19,10 @@ namespace RoyT.TrueType.Tests
             var fonts = new List<TrueTypeFont>();
             foreach (var file in Directory.EnumerateFiles(@"C:\Windows\Fonts"))
             {
-                if (file.EndsWith(".ttf"))
+                if (file.EndsWith(".ttf") && !file.EndsWith("mstmc.ttf")) // mstmc.ttf is not a regular font file
                 {
                     var font = TrueTypeFont.FromFile(file);
                     fonts.Add(font);
-                    if (font.KernTable.SubtableCount > 0)
-                    {
-                        
-                    }
                 }
             }
 
