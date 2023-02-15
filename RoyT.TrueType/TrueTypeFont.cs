@@ -62,7 +62,7 @@ namespace RoyT.TrueType
 
         private static CmapTable ReadCmapTable(string path, FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
         {
-            if (entries.TryGetValue("cmap", out var cmapEntry))
+            if (entries.TryGetValue(TrueTypeTableNames.cmap, out var cmapEntry))
             {
                 reader.Seek(cmapEntry.Offset);
                 return CmapTable.FromReader(reader);
@@ -75,7 +75,7 @@ namespace RoyT.TrueType
 
         private static NameTable ReadNameTable(string path, FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
         {            
-            if (entries.TryGetValue("name", out var cmapEntry))
+            if (entries.TryGetValue(TrueTypeTableNames.name, out var cmapEntry))
             {
                 reader.Seek(cmapEntry.Offset);
                 return NameTable.FromReader(reader);
@@ -88,7 +88,7 @@ namespace RoyT.TrueType
 
         private static KernTable ReadKernTable(FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
         {
-            if (entries.TryGetValue("kern", out var kernEntry))
+            if (entries.TryGetValue(TrueTypeTableNames.kern, out var kernEntry))
             {
                 reader.Seek(kernEntry.Offset);
                 return KernTable.FromReader(reader);
@@ -99,7 +99,7 @@ namespace RoyT.TrueType
 
         private static HheaTable ReadHheaTable(FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
         {
-            if (entries.TryGetValue("hhea", out var kernEntry))
+            if (entries.TryGetValue(TrueTypeTableNames.hhea, out var kernEntry))
             {
                 reader.Seek(kernEntry.Offset);
                 return HheaTable.FromReader(reader);
@@ -110,7 +110,7 @@ namespace RoyT.TrueType
 
         private static VheaTable ReadVheaTable(FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
         {
-            if (entries.TryGetValue("vhea", out var kernEntry))
+            if (entries.TryGetValue(TrueTypeTableNames.vhea, out var kernEntry))
             {
                 reader.Seek(kernEntry.Offset);
                 return VheaTable.FromReader(reader);
