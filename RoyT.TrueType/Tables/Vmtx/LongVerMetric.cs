@@ -11,15 +11,15 @@ namespace RoyT.TrueType.Tables.Vmtx
         {
             return new()
             {
-                AdvanceWidth = reader.ReadUInt16BigEndian(),
+                AdvanceHeight = reader.ReadUInt16BigEndian(),
                 TopSideBearing = reader.ReadInt16BigEndian(),
             };
         }
 
         /// <summary>
-        /// Advance width, in font design units.
+        /// Advance height, in font design units.
         /// </summary>
-        public ushort AdvanceWidth { get; init; }
+        public ushort AdvanceHeight { get; init; }
 
         /// <summary>
         /// Glyph left side bearing, in font design units.

@@ -75,9 +75,9 @@ namespace RoyT.TrueType.IO
             return data;
         }
 
-        public void Seek(long offset)
+        public void Seek(long offset, SeekOrigin seekOrigin = SeekOrigin.Begin)
         {            
-            this.BaseStream.Seek(offset, SeekOrigin.Begin);
+            this.BaseStream.Seek(offset, seekOrigin);
         }        
     }
 }
