@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using RoyT.TrueType.Helpers;
 using RoyT.TrueType.Tables.Name;
 using Xunit;
@@ -14,21 +15,41 @@ namespace RoyT.TrueType.Tests
         /// Integration tests that parses all fonts installed with Windows        
         /// </summary>
         [Fact]
-        public void ShouldParseWindowsFonts()
+        public void ShouldParseTrueTypeFonts()
         {
-            var fonts = new List<TrueTypeFont>();
-            foreach (var file in Directory.EnumerateFiles(@"C:\Windows\Fonts"))
+            List<TrueTypeFont> systemFonts = new();
+            DirectoryInfo fontdir = new(Environment.GetFolderPath(Environment.SpecialFolder.Fonts));
+
+            var fontFiles = fontdir.EnumerateFiles().
+                Where(f => f.Extension.ToLowerInvariant() is ".ttf");
+            foreach (var file in fontFiles)
             {
-                if (file.EndsWith(".ttf") && !file.EndsWith("mstmc.ttf")) // mstmc.ttf is not a regular font file
-                {
-                    var font = TrueTypeFont.FromFile(file);
-                    fonts.Add(font);
-                }
+                var font = TrueTypeFont.FromFile(file.FullName);
+                systemFonts.Add(font);
             }
 
-            Assert.NotEmpty(fonts);
+            Assert.NotEmpty(systemFonts);
         }
 
+        /// <summary>
+        /// Integration tests that parses all fonts installed with Windows        
+        /// </summary>
+        [Fact]
+        public void ShouldParseTrueTypeCollections()
+        {
+            List<TrueTypeFont> systemFonts = new();
+            DirectoryInfo fontdir = new(Environment.GetFolderPath(Environment.SpecialFolder.Fonts));
+
+            var fontCollectionFiles = fontdir.EnumerateFiles().
+                Where(f => f.Extension.ToLowerInvariant() is ".ttc");
+            foreach (var file in fontCollectionFiles)
+            {
+                var fonts = TrueTypeFont.FromCollectionFile(file.FullName);
+                systemFonts.AddRange(fonts);
+            }
+
+            Assert.NotEmpty(systemFonts);
+        }
 
         /// <summary>
         /// Smoke test for checking glyph indices     

@@ -15,7 +15,7 @@ namespace RoyT.TrueType.Tables.Name
 
             if (platformId == Platform.Windows)
             {
-                if (encodingId > 1) // Should be 0 for symbol fonts, 1 for unicode fonts
+                if (encodingId is not (10 or 1 or 0)) // Should be 0 for symbol fonts, 1 for unicode fonts
                 {
                     throw new Exception("Unexpected encoding in name record");
                 }

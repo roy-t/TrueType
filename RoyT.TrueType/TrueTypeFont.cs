@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using RoyT.TrueType.IO;
+﻿using RoyT.TrueType.IO;
 using RoyT.TrueType.Tables;
 using RoyT.TrueType.Tables.Cmap;
 using RoyT.TrueType.Tables.Hmtx;
 using RoyT.TrueType.Tables.Kern;
 using RoyT.TrueType.Tables.Name;
 using RoyT.TrueType.Tables.Vmtx;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace RoyT.TrueType
 {
@@ -15,35 +15,57 @@ namespace RoyT.TrueType
     {
         public static TrueTypeFont FromFile(string path)
         {
-            using (var reader = new FontReader(File.OpenRead(path)))
-            {
-                var offsetTable = OffsetTable.FromReader(reader);
-                var entries = ReadTableRecords(reader, offsetTable);
+            using var fstream = File.OpenRead(path);
+            using var reader = new FontReader(fstream);
 
-                var cmap = ReadCmapTable(path, reader, entries);
-                var name = ReadNameTable(path, reader, entries);
-                var head = ReadHeadTable(path, reader, entries);
-                var maxp = ReadMaxpTable(path, reader, entries);
-                var os2 = ReadOs2Table(reader, entries);
-                var kern = ReadKernTable(reader, entries);
-                var hhea = ReadHheaTable(reader, entries);
-                var vhea = ReadVheaTable(reader, entries);
-                var hmtx = ReadHmtxTable(reader, entries, hhea.NumberOfHMetrics, maxp.NumGlyphs);
-                var vmtx = ReadVmtxTable(reader, entries, vhea.NumberOfVMetrics, maxp.NumGlyphs);
-
-                return new TrueTypeFont(path, offsetTable, entries, cmap, name, kern)
-                {
-                    Os2Table = os2,
-                    HeadTable = head,
-                    MaxpTable = maxp,
-                    HheaTable = hhea,
-                    HmtxTable = hmtx,
-                    VheaTable = vhea,
-                    VmtxTable = vmtx,
-                };
-            }
+            return FromStream(reader, path);
         }
-      
+
+        public static IReadOnlyList<TrueTypeFont> FromCollectionFile(string path)
+        {
+            using var fstream = File.OpenRead(path);
+            using var reader = new FontReader(fstream);
+
+            var header = TtcHeader.Parse(reader);
+
+            List<TrueTypeFont> fonts = new();
+            foreach (var offset in header.TableDirectoryOffsets)
+            {
+                reader.Seek(offset);
+                fonts.Add(FromStream(reader, path));
+            }
+
+            return fonts;
+        }
+
+        public static TrueTypeFont FromStream(FontReader reader, string source)
+        {
+            var offsetTable = OffsetTable.FromReader(reader);
+            var entries = ReadTableRecords(reader, offsetTable);
+
+            var cmap = ReadCmapTable(source, reader, entries);
+            var name = ReadNameTable(source, reader, entries);
+            var head = ReadHeadTable(source, reader, entries);
+            var maxp = ReadMaxpTable(source, reader, entries);
+            var os2 = ReadOs2Table(reader, entries);
+            var kern = ReadKernTable(reader, entries);
+            var hhea = ReadHheaTable(reader, entries);
+            var vhea = ReadVheaTable(reader, entries);
+            var hmtx = ReadHmtxTable(reader, entries, hhea.NumberOfHMetrics, maxp.NumGlyphs);
+            var vmtx = ReadVmtxTable(reader, entries, vhea.NumberOfVMetrics, maxp.NumGlyphs);
+
+            return new TrueTypeFont(source, offsetTable, entries, cmap, name, kern)
+            {
+                Os2Table = os2,
+                HeadTable = head,
+                MaxpTable = maxp,
+                HheaTable = hhea,
+                HmtxTable = hmtx,
+                VheaTable = vhea,
+                VmtxTable = vmtx,
+            };
+        }
+
         public static bool TryGetTablePosition(FontReader reader, string tableName, out long offset)
         {
             reader.Seek(0);
