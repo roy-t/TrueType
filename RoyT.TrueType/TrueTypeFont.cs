@@ -22,6 +22,7 @@ namespace RoyT.TrueType
 
                 var cmap = ReadCmapTable(path, reader, entries);
                 var name = ReadNameTable(path, reader, entries);
+                var head = ReadHeadTable(path, reader, entries);
                 var maxp = ReadMaxpTable(path, reader, entries);
                 var os2 = ReadOs2Table(reader, entries);
                 var kern = ReadKernTable(reader, entries);
@@ -33,6 +34,7 @@ namespace RoyT.TrueType
                 return new TrueTypeFont(path, offsetTable, entries, cmap, name, kern)
                 {
                     Os2Table = os2,
+                    HeadTable = head,
                     MaxpTable = maxp,
                     HheaTable = hhea,
                     HmtxTable = hmtx,
@@ -93,6 +95,17 @@ namespace RoyT.TrueType
 
             throw new Exception(
                 $"Font {path} does not contain a Name Table (name)");
+        }
+
+        private static HeadTable ReadHeadTable(string path, FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
+        {
+            if (entries.TryGetValue(TrueTypeTableNames.head, out var entry))
+            {
+                return HeadTable.FromReader(reader, entry);
+            }
+
+            throw new Exception(
+                $"Font {path} does not contain a Font Header Table (head)");
         }
 
         private static MaxpTable ReadMaxpTable(string path, FontReader reader, IReadOnlyDictionary<string, TableRecordEntry> entries)
@@ -195,6 +208,11 @@ namespace RoyT.TrueType
         /// Consists of a set of metrics and other data that are required in OpenType fonts
         /// </summary>
         public Os2Table Os2Table { get; init; }
+
+        /// <summary>
+        /// Consists of global information about the font
+        /// </summary>
+        public HeadTable HeadTable { get; init; }
 
         /// <summary>
         /// Contains the memory requirements for this font.

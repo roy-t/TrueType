@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Data;
 using System.IO;
 using System.Text;
 
@@ -33,7 +34,13 @@ namespace RoyT.TrueType.IO
             var bytes = ReadBigEndian(4);
             return BitConverter.ToUInt32(bytes, 0);
         }
-      
+
+        public long ReadInt64BigEndian()
+        {
+            var bytes = ReadBigEndian(8);
+            return BitConverter.ToInt64(bytes, 0);
+        }
+
         public string ReadAscii(int length)
         {            
             var bytes = this.ReadBytes(length);
