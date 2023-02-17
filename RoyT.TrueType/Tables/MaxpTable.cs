@@ -11,23 +11,21 @@ namespace RoyT.TrueType.Tables
         {
             reader.Seek(entry.Offset);
 
-            reader.ReadFixedBigEndian(out short major, out short minor);
+            var version = reader.ReadFixedBigEndian();
             ushort numGlyphcs = reader.ReadUInt16BigEndian();
 
-            if (major == 0 && minor == 5)
+            if (version == 0.5f)
             {
                 return new()
                 {
-                    MajorVersion = major,
-                    MinorVersion = minor,
+                    Version = version,
                     NumGlyphs = numGlyphcs,
                 };
             }
 
             return new()
             {
-                MajorVersion = major,
-                MinorVersion = minor,
+                Version = version,
                 NumGlyphs = numGlyphcs,
                 MaxPoints = reader.ReadUInt16BigEndian(),
                 MaxContours = reader.ReadUInt16BigEndian(),
@@ -45,8 +43,7 @@ namespace RoyT.TrueType.Tables
             };
         }
 
-        public short MajorVersion { get; init; }
-        public short MinorVersion { get; init; }
+        public float Version { get; init; }
 
         /// <summary>
         /// The number of glyphs in the font.

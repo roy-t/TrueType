@@ -92,8 +92,7 @@ namespace RoyT.TrueType.Tests
         {
             var font = TrueTypeFont.FromFile(@"C:\Windows\Fonts\malgun.ttf");
 
-            Assert.Equal(1, font.VheaTable.MajorVersion);
-            Assert.Equal(0, font.VheaTable.MinorVersion);
+            Assert.Equal(1, font.VheaTable.Version);
         }
 
         [Fact]

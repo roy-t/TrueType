@@ -55,12 +55,11 @@ namespace RoyT.TrueType.IO
         /// <summary>
         /// Reads a 32 bit signed fixed point number (16.16)        
         /// </summary>
-        /// <param name="major"></param>
-        /// <param name="minor"></param>
-        public void ReadFixedBigEndian(out short major, out short minor)
-        {            
-            major = ReadInt16BigEndian();
-            minor = ReadInt16BigEndian();
+        public float ReadFixedBigEndian()
+        {
+            var dec = this.ReadInt16BigEndian();
+            var frac = this.ReadUInt16BigEndian();
+            return dec + frac / 65535f;
         }
 
         private byte[] ReadBigEndian(int count)
