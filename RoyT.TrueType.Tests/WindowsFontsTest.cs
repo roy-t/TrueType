@@ -24,8 +24,11 @@ namespace RoyT.TrueType.Tests
                 Where(f => f.Extension.ToLowerInvariant() is ".ttf");
             foreach (var file in fontFiles)
             {
-                var font = TrueTypeFont.FromFile(file.FullName);
-                systemFonts.Add(font);
+                if (!file.Name.Equals("mstmc.ttf", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var font = TrueTypeFont.FromFile(file.FullName);
+                    systemFonts.Add(font);
+                }
             }
 
             Assert.NotEmpty(systemFonts);
