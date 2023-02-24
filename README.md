@@ -19,9 +19,17 @@ To learn more about the TrueType font format and terminology used here see the [
 
 
 ## Why choose this library?
-- It can read all formats of the Cmap, Kern, and Name tables that exist in the fonts that come with a standard Windows 10 installation. This means you can use this library to read
-  - The glyph ids of all characters supported by the font
-  - (Localized) font names, font families, descriptions, and more
+- It can read the following tables of all fonts that exist in a standard Windows 10 installation:
+    - [CMAP](https://learn.microsoft.com/en-us/typography/opentype/spec/cmap), character to glyph index mapping table
+    - [KERN](https://learn.microsoft.com/en-us/typography/opentype/spec/kern), inter character spacing (kerning)
+    - [NAME](https://learn.microsoft.com/en-us/typography/opentype/spec/name), multilingual strings for font names, styles, ...
+    - [MAXP](https://learn.microsoft.com/en-us/typography/opentype/spec/maxp), memory requirements
+    - [HMTX](https://learn.microsoft.com/en-us/typography/opentype/spec/hmtx), horizontal metrics table
+    - [VMTX](https://learn.microsoft.com/en-us/typography/opentype/spec/vmtx), vertical metrics table
+    - [HHEA](https://learn.microsoft.com/en-us/typography/opentype/spec/hhea), horizontal header table
+    - [VHEA](https://learn.microsoft.com/en-us/typography/opentype/spec/vhea), vertical header table
+    - [OS2](https://learn.microsoft.com/en-us/typography/opentype/spec/os2) OS/2 and Windows Metric Table
+
 - It exposes both an easy to use API to directly get useful information from these tables, but also exposes the tables themselves so you add your own interpretation of the data
 - It works on both `.Net Core 1.0` and `.Net 4.6.1` and higher by targetting `.Net standard 1.6`
 
