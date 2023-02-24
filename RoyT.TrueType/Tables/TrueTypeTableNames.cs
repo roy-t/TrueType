@@ -18,6 +18,11 @@
         public const string maxp = "maxp";
 
         /// <summary>
+        /// Font Header Table
+        /// </summary>
+        public const string head = "head";
+
+        /// <summary>
         /// Naming Table
         /// </summary>
         public const string name = "name";

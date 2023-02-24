@@ -11,7 +11,7 @@ namespace RoyT.TrueType.Tables
         {
             reader.Seek(entry.Offset);
 
-            reader.ReadFixedBigEndian(out short major, out short minor);
+            var version = reader.ReadFixedBigEndian();
 
             var ascender = reader.ReadInt16BigEndian();
             var descender = reader.ReadInt16BigEndian();
@@ -32,8 +32,7 @@ namespace RoyT.TrueType.Tables
 
             return new VheaTable()
             {
-                MajorVersion = major,
-                MinorVersion = minor,
+                Version = version,
                 Ascender = ascender,
                 Descender = descender,
                 LineGap = lineGap,
@@ -52,14 +51,9 @@ namespace RoyT.TrueType.Tables
         public static VheaTable Empty => new VheaTable();
 
         /// <summary>
-        /// Major version number of the vertical header table
+        /// Version number of the vertical header table
         /// </summary>
-        public short MajorVersion { get; init; }
-
-        /// <summary>
-        /// Minor version number of the vertical header table
-        /// </summary>
-        public short MinorVersion { get; init; }
+        public float Version { get; init; }
 
         /// <summary>
         /// The vertical typographic ascender for this font. It is the distance in FUnits from the vertical

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Data;
 using System.IO;
 using System.Text;
 
@@ -33,7 +34,13 @@ namespace RoyT.TrueType.IO
             var bytes = ReadBigEndian(4);
             return BitConverter.ToUInt32(bytes, 0);
         }
-      
+
+        public long ReadInt64BigEndian()
+        {
+            var bytes = ReadBigEndian(8);
+            return BitConverter.ToInt64(bytes, 0);
+        }
+
         public string ReadAscii(int length)
         {            
             var bytes = this.ReadBytes(length);
@@ -55,12 +62,11 @@ namespace RoyT.TrueType.IO
         /// <summary>
         /// Reads a 32 bit signed fixed point number (16.16)        
         /// </summary>
-        /// <param name="major"></param>
-        /// <param name="minor"></param>
-        public void ReadFixedBigEndian(out short major, out short minor)
-        {            
-            major = ReadInt16BigEndian();
-            minor = ReadInt16BigEndian();
+        public float ReadFixedBigEndian()
+        {
+            var dec = this.ReadInt16BigEndian();
+            var frac = this.ReadUInt16BigEndian();
+            return dec + frac / 65535f;
         }
 
         private byte[] ReadBigEndian(int count)
