@@ -2,7 +2,7 @@
 
 *Current version: 0.2.0*
 
-A TrueType parser for reading, glyphIds, names, descriptions, and kerning information from TrueType fonts. Supports `.NetStandard 1.6`, `.Net 4.6.1` and higher.
+A TrueType parser for reading, glyphIds, names, descriptions, and kerning information from TrueType fonts. Supports `.NetStandard 2.0`, `.Net 4.6.1` and higher.
 
 
 You can directly add this library to your project using [NuGet](https://www.nuget.org/packages/RoyT.TrueType/):
